@@ -88,7 +88,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://bluerov_ros_playground/model/BlueRov2.dae"/>
+        <mesh filename="package://bluerov_ros/model/BlueRov2.dae"/>
       </geometry>
     </visual>
     <inertial>

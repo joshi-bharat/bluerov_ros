@@ -4,7 +4,7 @@
     <arg name="bluerov_node_device" default="udpin:0.0.0.0:14560"/>
 
     <!-- start bluerov2 node -->
-    <node respawn="true" pkg="bluerov_ros_playground" type="node" name="node" output="$(arg log_output)">
+    <node respawn="true" pkg="bluerov_ros" type="node" name="node" output="$(arg log_output)">
         <param name="device" value="$(arg bluerov_node_device)"/>
     </node>
 </launch>

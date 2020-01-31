@@ -7,9 +7,9 @@
 Once the BlueRov is connected to your computer, run:
 
 ```bash
-$ roslaunch bluerov_ros_playground bluerov2_node.launch bluerov_node_device:=udp:localhost:14550
+$ roslaunch bluerov_ros bluerov2_node.launch bluerov_node_device:=udp:localhost:14550
 
-$ roslaunch bluerov_ros_playground control.launch bluerov_node_device:=udp:localhost:14550
+$ roslaunch bluerov_ros control.launch bluerov_node_device:=udp:localhost:14550
 ```
 You can select the input device with: `bluerov_node_device:=udp:localhost:14550` or `bluerov_node_device:=/dev/ttyACM0` argument.
 The default value is `udp:192.168.2.1:14550`.
@@ -22,10 +22,10 @@ The folowing topics are available:
  - **/BlueRov2/battery** - `sensor_msgs/BatteryState`
  - **/BlueRov2/camera/image_raw** - `sensor_msgs/Image`
  - **/BlueRov2/imu/data** - `sensor_msgs/Imu`
- - **/BlueRov2/imu/attitude** - `bluerov_ros_playground/Attitude`
+ - **/BlueRov2/imu/attitude** - `bluerov_ros/Attitude`
  - **/BlueRov2/mode/set** - `std_msgs/String`
  - **/BlueRov2/odometry** - `nav_msgs/Odometry`
- - **/BlueRov2/bar30** - `bluerov_ros_playground/Bar30`
+ - **/BlueRov2/bar30** - `bluerov_ros/Bar30`
  - **/BlueRov2/rc_channel1/set_pwm** - `std_msgs/UInt16`
  - **/BlueRov2/rc_channel2/set_pwm** - `std_msgs/UInt16`
  - **/BlueRov2/rc_channel3/set_pwm** - `std_msgs/UInt16`

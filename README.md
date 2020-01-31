@@ -1,6 +1,6 @@
 # BlueRov-ROS-playground
 
-github original : (https://github.com/patrickelectric/bluerov_ros_playground)
+github original : (https://github.com/patrickelectric/bluerov_ros)
 
 Scripts to help BlueRov integration with ROS.
 What is possible ?
@@ -32,13 +32,13 @@ What is possible ?
  1. Go to your ROS package source directory:
     - `$ cd ros_workspace_path/src`
  2. Clone this project.
-    - `$ git clone https://github.com/patrickelectric/bluerov_ros_playground`
+    - `$ git clone https://github.com/patrickelectric/bluerov_ros`
  3. Go back to your ROS workspace:
     - `$ cd ../`
  4. Build and install it:
-    - `$ catkin_make --pkg bluerov_ros_playground`
+    - `$ catkin_make --pkg bluerov_ros`
     - if using ROS from source:
-        - `$./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release --pkg bluerov_ros_playground`
+        - `$./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release --pkg bluerov_ros`
  5. Reload your ROS env.
     - bash: `$ source devel/setup.sh`
     - zsh: `$ source devel/setup.sh`
@@ -52,14 +52,14 @@ What is possible ?
 - Launch user example
 
     This example will start user example, reading data from mavlink, interacting with joystick over rc commands and showing ROV video stream.
-    - `roslaunch bluerov_ros_playground user_mav.launch`
+    - `roslaunch bluerov_ros user_mav.launch`
 
     To run QGC parallel with user_mav, it's necessary to run user_mav first. If it's necessary to change the input, the parameter `joy_dev` can be used to set the one used.
 
 - Visualize video stream
 
     Shows video stream using opencv and gstreamer
-    - `roslaunch bluerov_ros_playground video.launch`
+    - `roslaunch bluerov_ros video.launch`
 
     To capture video stream in user_mav/video and QGC at same time, it's necessary to modifie [gstreamer options](http://192.168.2.2:2770/camera), changing `! udpsink host=192.168.2.1 port=5600` to `! multiudpsink clients=192.168.2.1:5600,192.168.2.1:5601` and add the udp_port parameter when calling roslaunch (`video_udp_port:=5601`).
 
@@ -67,19 +67,19 @@ What is possible ?
 
     This example allow SITL communication with Gazebo, right now the only interaction that happen is the thruster control using [thruster pwm fitting](https://colab.research.google.com/notebook#fileId=1CEDW9ONTJ8Aik-HVsqck8Y_EcHYLg0zK).
     - Run SITL and start gazebo.launch
-    - `roslaunch bluerov_ros_playground gazebo.launch`
+    - `roslaunch bluerov_ros gazebo.launch`
 
 - Gazebo Teleop
 
     It'll open a window with the camera stream and Gazebo, a joystick can be used to control the ROV.
-    - `roslaunch bluerov_ros_playground gazebo_teleop.launch`
+    - `roslaunch bluerov_ros gazebo_teleop.launch`
 
     To change the default joystick input (`/dev/input/js0`), it's possible add the parameter `joy_dev:=/dev/input/jsX` when launching the simulation.
 
 - RVIZ
 
     Visualize 3D model
-    - `roslaunch bluerov_ros_playground rviz.launch`
+    - `roslaunch bluerov_ros rviz.launch`
 
 ### Running with SITL ###
 - Run ArduPilot SITL

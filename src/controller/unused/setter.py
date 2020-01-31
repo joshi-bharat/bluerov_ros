@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 import rospy
-from bluerov_ros_playground.msg import Set_depth
-from bluerov_ros_playground.msg import Set_heading
-from bluerov_ros_playground.msg import Set_velocity
-from bluerov_ros_playground.msg import Set_target
+from bluerov_ros.msg import Set_depth
+from bluerov_ros.msg import Set_heading
+from bluerov_ros.msg import Set_velocity
+from bluerov_ros.msg import Set_target
 
 
 def set_msg_depth(pwm_max, KI, KP, KD):

@@ -5,8 +5,8 @@ from std_msgs.msg import String
 from std_msgs.msg import UInt16
 from std_msgs.msg import Bool
 from sensor_msgs.msg import Imu
-from bluerov_ros_playground.msg import Set_velocity
-from bluerov_ros_playground.msg import Set_target
+from bluerov_ros.msg import Set_velocity
+from bluerov_ros.msg import Set_target
 
 class Velocity_Control():
     def __init__(self, velocity_desired=1, pwm_max=1550, pwm_neutral=1500, KP=100, KD=25, rosrate=6):

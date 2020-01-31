@@ -2,7 +2,7 @@
 <launch>
     <arg name="joy_dev" default="/dev/input/js0"/>
     <arg name="log_output" default="log"/>
-    <arg name="model" default="$(find bluerov_ros_playground)/model/BlueRov2.urdf.xacro"/>
+    <arg name="model" default="$(find bluerov_ros)/model/BlueRov2.urdf.xacro"/>
 
     <!-- Launch Gazebo with underwater world -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -14,7 +14,7 @@
         <!-- spawn in Gazebo with GUI -->
         <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
         <node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model BlueRov2 -param robot_description -x 3.42 -y 3.95 -z -12.1 -R 3.14927 -P 0 -Y 2.53"/>
-        <rosparam file="$(find bluerov_ros_playground)/config/bluerov2_thrusters.yaml" command="load"/>
+        <rosparam file="$(find bluerov_ros)/config/bluerov2_thrusters.yaml" command="load"/>
     </group>
 
     <!-- spawn terrain -->
@@ -31,5 +31,5 @@
         <remap from="image" to="/BlueRov2/camera/image_raw" />
     </node>
 
-    <node pkg="bluerov_ros_playground" type="gazebo_teleop.py" name="gazebo_teleop" output="$(arg log_output)"/>
+    <node pkg="bluerov_ros" type="gazebo_teleop.py" name="gazebo_teleop" output="$(arg log_output)"/>
 </launch>
