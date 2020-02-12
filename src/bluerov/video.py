@@ -6,6 +6,7 @@ BlueRov video capture class
 import cv2
 import gi
 import numpy as np
+import rospy
 
 gi.require_version('Gst', '1.0')
 from gi.repository import Gst
@@ -34,7 +35,7 @@ class Video():
         Gst.init(None)
 
         self.port = port
-        self._frame = None
+        self._frame = {}
 
         # [Software component diagram](https://www.ardusub.com/software/components.html)
         # UDP video stream (:5600)
@@ -115,7 +116,11 @@ class Video():
         Returns:
             bool: true if frame is available
         """
-        return type(self._frame) != type(None)
+
+        return self._frame and ( not self._frame['used'])
+
+    def set_frame_used(self):
+        self._frame['used'] = True
 
     def run(self):
         """ Get frame to update _frame
@@ -134,19 +139,23 @@ class Video():
     def callback(self, sink):
         sample = sink.emit('pull-sample')
         new_frame = self.gst_to_opencv(sample)
-        self._frame = new_frame
-
+        self._frame['data'] = new_frame
+        self._frame['stamp'] = rospy.Time.now()
+        self._frame['used'] = False
         return Gst.FlowReturn.OK
 
 
 if __name__ == '__main__':
+    # Create the video object
+    # Add port= if is necessary to use a different one
     video = Video()
 
     while True:
+        # Wait for the next frame
         if not video.frame_available():
             continue
-
+        # time = time.time()
         frame = video.frame()
         cv2.imshow('frame', frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if cv2.waitKey(40) & 0xFF == ord('q'):
             break

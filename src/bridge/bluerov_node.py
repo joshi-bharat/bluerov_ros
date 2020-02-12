@@ -38,7 +38,7 @@ from bluerov_ros.msg import Attitude
 from bluerov_ros.msg import State 
 
 class BlueRov(Bridge):
-    def __init__(self, device='udp:192.168.2.1:14550', baudrate=115200):
+    def __init__(self, device='udp:192.168.2.1:14550', baudrate=115200, camera_rate=30):
         """ BlueRov ROS Bridge
 
         Args:
@@ -48,7 +48,7 @@ class BlueRov(Bridge):
         super(BlueRov, self).__init__(device, baudrate)
         self.pub = Pubs()
         self.sub = Subs()
-        self.ROV_name = 'BlueRov2'
+        self.ROV_name = 'bluerov2'
         self.model_base_link = '/base_link'
 
         self.video = Video()
@@ -59,43 +59,43 @@ class BlueRov(Bridge):
                 self._create_battery_msg,
                 '/battery',
                 BatteryState,
-                1
+                10
             ],
             [
                 self._create_camera_msg,
                 '/camera/image_raw',
                 Image,
-                1
+                10
             ],
             [
                 self._create_ROV_state,
                 '/state',
                 State,
-                1
+                10
             ],
             [
                 self._create_imu_msg,
                 '/imu/data',
                 Imu,
-                1
+                10
             ],
             [
                 self._create_odometry_msg,
                 '/odometry',
                 Odometry,
-                1
+                10
             ],
             [
                 self._create_bar30_msg,
                 '/bar30',
                 Bar30,
-                1
+                10
             ],
             [
                 self._create_imu_euler_msg,
                 '/imu/attitude',
                 Attitude,
-                1
+                10
             ]
         ]
 
@@ -487,17 +487,21 @@ class BlueRov(Bridge):
 
     def _create_camera_msg(self):
         if not self.video.frame_available():
+            # print("Video not available")
             return
         frame = self.video.frame()
-        image_msg = Image()
-        self._create_header(image_msg)
-        height, width, channels = frame.shape
-        image_msg.width = width
-        image_msg.height = height
-        image_msg.encoding = 'bgr8'
-        image_msg.data = frame
-        msg = self.video_bridge.cv2_to_imgmsg(frame, "bgr8")
+        self.video.set_frame_used()
+
+        # image_msg = Image()
+        # self._create_header(image_msg)
+        # height, width, channels = frame.shape
+        # image_msg.width = width
+        # image_msg.height = height
+        # image_msg.encoding = 'bgr8'
+        # image_msg.data = frame
+        msg = self.video_bridge.cv2_to_imgmsg(frame['data'], "bgr8")
         self._create_header(msg)
+        msg.header.stamp = frame['stamp']
         msg.step = int(msg.step)
         self.pub.set_data('/camera/image_raw', msg)
     

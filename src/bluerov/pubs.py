@@ -40,6 +40,7 @@ class Pubs(object):
 
         # The first item will be empty
         keys = path.split('/')[1:]
+        # print(keys)
         current_level = self.data
         for part in keys:
             # If dict don't have the path, create it !

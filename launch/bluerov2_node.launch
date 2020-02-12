@@ -1,10 +1,18 @@
 <?xml version="1.0"?>
 <launch>
     <arg name="log_output" default="screen"/>
-    <arg name="bluerov_node_device" default="udpin:0.0.0.0:14560"/>
+    <arg name="bluerov_node_device" default="udp:192.168.2.1:14550"/>
+
+    <!-- Supported camera frame rate are 30, 25, 15.
+    Connect to Blue ROV and go to http://192.168.2.2:2770/camera to change frame rate
+    and other options. -->
+
+    <arg name="image_freq" default="30" />
+
 
     <!-- start bluerov2 node -->
     <node respawn="true" pkg="bluerov_ros" type="node" name="node" output="$(arg log_output)">
         <param name="device" value="$(arg bluerov_node_device)"/>
+        <param name="camera_frame_rate" value="30"/>
     </node>
 </launch>

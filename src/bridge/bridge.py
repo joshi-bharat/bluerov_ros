@@ -280,14 +280,14 @@ if __name__ == '__main__':
     bridge = Bridge()
     #bridge = Bridge(device='udp:localhost:14550')
     #i=0
-    #filemav = open("mavlinkdata.txt", 'w')
+    filemav = open("mavlinkdata.txt", 'w')
     while True:
         bridge.update()
         bridge.print_data()
-        #filemav.write("{}\n".format(bridge.data))
+        filemav.write("{}\n".format(bridge.data))
         #bridge.set_servo_pwm(9,1800)
         #i+=1
-    #filemav.close()
+    filemav.close()
         
 
 
